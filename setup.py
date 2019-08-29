@@ -11,6 +11,8 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/pypa/sampleproject",
     packages=setuptools.find_packages(),
+    entry_points={
+        "console_scripts": ["extract=keyframes_extractor.cli_scripts:main"]},
     classifiers=[
         "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: MIT License",

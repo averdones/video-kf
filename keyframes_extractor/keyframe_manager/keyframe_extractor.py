@@ -65,8 +65,3 @@ def get_keyframes(ffmpeg_exe, ffprobe_exe, video_file, method="iframes", output_
         copy_keyframes_from_frames(frames_dir, keyframes, name_dir=output_dir, remove_frames_dir=remove_frames_dir)
 
     print("Keyframes successfully extracted.")
-
-
-if __name__ == "__main__":
-    video_file = "D:/My_projects/Python_projects/video_tldr/test_videos/ny/ny.mp4"
-    get_keyframes(video_file, method="flow", remove_frames_dir=False)

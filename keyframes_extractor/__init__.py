@@ -1,1 +1,1 @@
-from extract_keyframes import extract_keyframes
+from keyframes_extractor.extract_keyframes import extract_keyframes

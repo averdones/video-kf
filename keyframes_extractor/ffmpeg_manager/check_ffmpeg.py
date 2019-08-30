@@ -4,7 +4,7 @@ import urllib.request
 import zipfile
 import platform
 
-from utils.all_utils import make_dir
+from keyframes_extractor.utils.all_utils import make_dir
 
 
 def get_ffmpeg_and_ffprobe(dir=None):

@@ -1,6 +1,6 @@
 import argparse
 
-from extract_keyframes import extract_keyframes
+from keyframes_extractor.extract_keyframes import extract_keyframes
 
 
 def parse_arguments():
@@ -20,6 +20,5 @@ def parse_arguments():
 
 def main():
     args = parse_arguments()
-    e = extract_keyframes(args.video_file, args.method, args.output_dir_keyframes, args.dir_ffmpeg_ffprobe, args.ffmpeg,
-                          args.ffprobe)
-    e()
+    extract_keyframes(args.video_file, args.method, args.output_dir_keyframes, args.dir_ffmpeg_ffprobe, args.ffmpeg,
+                      args.ffprobe)

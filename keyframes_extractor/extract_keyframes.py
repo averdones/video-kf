@@ -1,5 +1,5 @@
-from ffmpeg_manager.check_ffmpeg import get_ffmpeg_and_ffprobe
-from keyframe_manager.keyframe_extractor import get_keyframes
+from keyframes_extractor.ffmpeg_manager.check_ffmpeg import get_ffmpeg_and_ffprobe
+from keyframes_extractor.keyframe_manager.keyframe_extractor import get_keyframes
 
 
 def extract_keyframes(video_file, method="iframes", output_dir_keyframes="keyframes", dir_exe=None, ffmpeg_exe=None,

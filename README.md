@@ -1,6 +1,3 @@
-# Video-kf
-Extracts iframes or keyframes from a video file, through the command line or inside python.
-
 ## Quick guide
 ### Installation
     pip install video-kf

@@ -3,7 +3,7 @@ from videokf.keyframe_manager.keyframe_extractor import get_keyframes
 
 
 def extract_keyframes(video_file, method="iframes", output_dir_keyframes="keyframes", dir_exe=None, ffmpeg_exe=None,
-                      ffprobe_exe=None):
+                      ffprobe_exe=None, remove_frames_dir=True):
     """
 
     Args:
@@ -18,6 +18,7 @@ def extract_keyframes(video_file, method="iframes", output_dir_keyframes="keyfra
                        ffprobe_exe are given.
         ffmpeg_exe (str): Path to the ffmpeg executable.
         ffprobe_exe (str): Path to the ffprobe executable.
+        remove_frames_dir (bool): If True, it removes the folder containing all the frames, after it has been used.
 
     Returns:
 
@@ -30,4 +31,4 @@ def extract_keyframes(video_file, method="iframes", output_dir_keyframes="keyfra
         ffprobe_exe = get_ffprobe(dir_exe)
 
     # Extract frames
-    get_keyframes(ffmpeg_exe, ffprobe_exe, video_file, method, output_dir_keyframes)
+    get_keyframes(ffmpeg_exe, ffprobe_exe, video_file, method, output_dir_keyframes, remove_frames_dir)

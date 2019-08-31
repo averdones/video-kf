@@ -14,6 +14,9 @@ def parse_arguments():
     parser.add_argument("-ffprobe", "--ffprobe", type=str, help="Path to the Ffprobe executable.")
     parser.add_argument("-dir", "--dir_ffmpeg_ffprobe", type=str, help="Path to the directory containing both Ffmpeg "
                                                                        "and Ffprobe executables.")
+    parser.add_argument("--no-frames-rm", dest="remove_frames_dir", action="store_false", help="If present, this option will "
+                        "NOT remove the directory with the extracted frames, if they were extracted (only for 'color' "
+                        "and 'flow' methods")
 
     return parser.parse_args()
 
@@ -21,4 +24,4 @@ def parse_arguments():
 def main():
     args = parse_arguments()
     extract_keyframes(args.video_file, args.method, args.output_dir_keyframes, args.dir_ffmpeg_ffprobe, args.ffmpeg,
-                      args.ffprobe)
+                      args.ffprobe, args.remove_frames_dir)

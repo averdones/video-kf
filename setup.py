@@ -1,16 +1,28 @@
 import setuptools
 
+# Long description
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+# Requirements
+def get_requirements():
+    return [
+        "numpy>=1.16",
+        "opencv-contrib-python>=4.1",
+        "requests>=2.22"
+    ]
 
 setuptools.setup(
     name="video-kf",
-    version="0.0.1",
+    version="0.0.3",
     author="Antonio Verdone",
     author_email="averdones@gmail.com",
-    description="A keyframes and ffmpeg iframes extractor.",
-    long_description="Long description",
+    description="A keyframes and ffmpeg iframes extractor",
+    long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/averdones/video-kf",
     packages=setuptools.find_packages(),
+    install_requires=get_requirements(),
     entry_points={
         "console_scripts": ["video-kf=videokf.cli_scripts:main"]},
     classifiers=[
@@ -18,4 +30,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    keywords="keyframes iframes video extractor",
+    python_requires=">=3.6"
 )

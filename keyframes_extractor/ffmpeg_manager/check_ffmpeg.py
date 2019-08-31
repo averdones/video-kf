@@ -7,28 +7,71 @@ import platform
 from keyframes_extractor.utils.all_utils import make_dir
 
 
-def get_ffmpeg_and_ffprobe(dir=None):
-    """Gets both ffmpeg and ffprobe executables, either from an env var, from dir or downloading them.
+def set_default_dir():
+    """Sets the default directory where ffmpeg and ffprobe will be searched and download, if not found.
 
     Args:
-        dir(str): Directory from where to read the executables or where to download them.
-
-    Returns:
-        tuple(str): Tuple with ffmpeg and ffprobe path file, in this order.
+          dir(str): Directory from where to read the executable or where to download it.
 
     """
-    # Set home as default directory
+    return Path.home()
+
+
+def get_default_dir(dir=None):
+    """Gets the path of the default directory where ffmpeg and ffprobe will be searched and donwload, if not found.
+
+    It will create the directory, if it doesn't exist.
+
+    Args:
+          dir(str): Directory from where to read the executable or where to download it.
+
+    """
     if dir is None:
-        dir = make_dir("Ffmpeg", Path.home())
+        dir = set_default_dir()
+
+    return make_dir("Ffmpeg", dir)
+
+
+def get_ffmpeg(dir=None):
+    """Gets ffmpeg executables, either from an env var, from dir or downloading it.
+
+    Args:
+        dir(str): Directory from where to read the executable or where to download it.
+
+    Returns:
+        tuple(str): Tuple with ffmpeg path file.
+
+    """
+    save_dir = get_default_dir(dir)
 
     # Get urls
-    ffmpeg_url, ffprobe_url = choose_url()
+    ffmpeg_url, _ = choose_url()
 
     # Get files or download them
-    ffmpeg = get_executable("ffmpeg", dir, ffmpeg_url)
-    ffprobe = get_executable("ffprobe", dir, ffprobe_url)
+    ffmpeg = get_executable("ffmpeg", save_dir, ffmpeg_url)
 
-    return str(ffmpeg), str(ffprobe)
+    return str(ffmpeg)
+
+
+def get_ffprobe(dir=None):
+    """Gets ffprobe executables, either from an env var, from dir or downloading it.
+
+    Args:
+        dir(str): Directory from where to read the executable or where to download it.
+
+    Returns:
+        tuple(str): Tuple with ffprobe path file.
+
+    """
+    save_dir = get_default_dir(dir)
+
+    # Get urls
+    _, ffprobe_url = choose_url()
+
+    # Get files or download them
+    ffprobe = get_executable("ffprobe", save_dir, ffprobe_url)
+
+    return str(ffprobe)
 
 
 def get_executable(file_name, dir, url):

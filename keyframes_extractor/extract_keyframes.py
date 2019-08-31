@@ -1,4 +1,4 @@
-from keyframes_extractor.ffmpeg_manager.check_ffmpeg import get_ffmpeg_and_ffprobe
+from keyframes_extractor.ffmpeg_manager.check_ffmpeg import get_ffmpeg, get_ffprobe
 from keyframes_extractor.keyframe_manager.keyframe_extractor import get_keyframes
 
 
@@ -13,22 +13,21 @@ def extract_keyframes(video_file, method="iframes", output_dir_keyframes="keyfra
         output_dir_keyframes (str): It can be either a full directory path where the keyframes will be stored, or a
                                     string, in which case, a folder with this name will be created in the same
                                     directory of the video and the keyframes will be saved there.
-        dir (str): Directory from where to read the executables or where to download them. By default, it is a folder
-                   called 'FFmpeg' in the home directory. It won't be used if both ffmpeg_exe and ffprobe_exe are given.
+        dir_exe (str): Directory from where to read the executables or where to download them. By default, it is a
+                       folder called 'FFmpeg' in the home directory. It won't be used if both ffmpeg_exe and
+                       ffprobe_exe are given.
         ffmpeg_exe (str): Path to the ffmpeg executable.
         ffprobe_exe (str): Path to the ffprobe executable.
 
     Returns:
 
     """
-    # Get ffmpeg and ffprobe
-    if ffmpeg_exe is None or ffprobe_exe is None:
-        ffmpeg_exe, ffprobe_exe = get_ffmpeg_and_ffprobe(dir_exe)
+    # Get paths to ffmpeg and ffprobe executables
+    if ffmpeg_exe is None:
+        ffmpeg_exe = get_ffmpeg(dir_exe)
+
+    if ffprobe_exe is None:
+        ffprobe_exe = get_ffprobe(dir_exe)
 
     # Extract frames
     get_keyframes(ffmpeg_exe, ffprobe_exe, video_file, method, output_dir_keyframes)
-
-
-if __name__ == "__main__":
-    video_file = "D:/My_projects/Python_projects/video_tldr/test_videos/ny/ny.mp4"
-    extract_keyframes(video_file)

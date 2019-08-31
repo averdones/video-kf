@@ -8,7 +8,8 @@ from videokf.utils.all_utils import make_dir, make_frames_list
 from videokf.keyframe_manager.frame_manager import Frame, calculate_stillness
 
 
-def extract_frames(ffmpeg_exe, video_file, frames_selected=None, output_dir="frames", frame_quality=1):
+def extract_frames(ffmpeg_exe, video_file, frames_selected=None, output_dir="frames", frame_quality=1,
+                   frame_type="frames"):
     """Extracts the frames in a video and saves them in a (possibly) new directory.
 
     It can extract only some specific frames specified by their index.
@@ -23,6 +24,7 @@ def extract_frames(ffmpeg_exe, video_file, frames_selected=None, output_dir="fra
         frame_quality (str or int): Quality in which the frames will be saved. The lower the number, the higher the
                                     quality (and the heavier the file). By default 1, which is the highest quality
                                     (negative numbers are equivalent to 1).
+        frame_type (str): Name of the type of frame extracted. Used for printing purposes.
 
     Returns:
         str: Directory where the frames have been stored.
@@ -48,9 +50,9 @@ def extract_frames(ffmpeg_exe, video_file, frames_selected=None, output_dir="fra
 
         subprocess.check_output(ffmpeg_args)
 
-        print("Frames successfully extracted.")
+        print(f"{frame_type.capitalize()} successfully extracted.")
     else:
-        print("!!! The output directory is not empty. No frames were extracted. !!!")
+        print(f"!!! The output directory '{frames_dir.name}' is not empty. No {frame_type} were extracted. !!!")
 
     return frames_dir
 

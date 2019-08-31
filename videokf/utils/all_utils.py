@@ -1,3 +1,4 @@
+import os
 import shutil
 from pathlib import Path
 
@@ -55,11 +56,17 @@ def copy_keyframes_from_frames(frames_dir, keyframes, name_dir="keyframes", remo
     # Create new directory if it doesn't already exist
     keyframes_dir = make_dir(name_dir, Path(frames_dir).parent)
 
-    # Copy keyframes from frames directory
-    for i in keyframes:
-        filename = Path(str(i)).with_suffix(".jpg")
-        shutil.copyfile(frames_dir / filename, keyframes_dir / filename)
+    # Copy keyframes from frames directory, only if destiny directory is empty
+    if len(os.listdir(keyframes_dir)) == 0:
+        for i in keyframes:
+            filename = Path(str(i)).with_suffix(".jpg")
+            shutil.copyfile(frames_dir / filename, keyframes_dir / filename)
+
+        print("Keyframes successfully extracted.")
+    else:
+        print(f"!!! The output directory '{keyframes_dir.name}' is not empty. Keyframes were not saved. !!!")
 
     # Remove frames folder
     if remove_frames_dir:
+        print("Removing frames ...")
         shutil.rmtree(frames_dir)

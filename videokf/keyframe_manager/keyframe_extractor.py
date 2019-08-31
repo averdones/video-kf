@@ -49,7 +49,7 @@ def get_keyframes(ffmpeg_exe, ffprobe_exe, video_file, method="iframes", output_
 
     # Compute the keyframe indices using the selected method
     if method=="iframes":
-        extract_frames(ffmpeg_exe, video_file, frames_selected=iframes, output_dir=output_dir)
+        extract_frames(ffmpeg_exe, video_file, frames_selected=iframes, output_dir=output_dir, frame_type=method)
     else:
         # For the rest of the methods it is necessary to extract all the frames in the video
         # Extract the frames and store the directory where the frames are saved as a variable
@@ -63,5 +63,3 @@ def get_keyframes(ffmpeg_exe, ffprobe_exe, video_file, method="iframes", output_
 
         # Copy selected keyframes and remove frames directory (if selected)
         copy_keyframes_from_frames(frames_dir, keyframes, name_dir=output_dir, remove_frames_dir=remove_frames_dir)
-
-    print("Keyframes successfully extracted.")

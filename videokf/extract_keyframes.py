@@ -1,4 +1,4 @@
-from videokf.ffmpeg_manager.check_ffmpeg import get_ffmpeg, get_ffprobe
+from videokf.ffmpeg_manager.check_ffmpeg import get_ff
 from videokf.keyframe_manager.keyframe_extractor import get_keyframes
 
 
@@ -25,10 +25,10 @@ def extract_keyframes(video_file, method="iframes", output_dir_keyframes="keyfra
     """
     # Get paths to ffmpeg and ffprobe executables
     if ffmpeg_exe is None:
-        ffmpeg_exe = get_ffmpeg(dir_exe)
+        ffmpeg_exe = get_ff("ffmpeg", dir_exe)
 
     if ffprobe_exe is None:
-        ffprobe_exe = get_ffprobe(dir_exe)
+        ffprobe_exe = get_ff("ffprobe", dir_exe)
 
     # Extract frames
     get_keyframes(ffmpeg_exe, ffprobe_exe, video_file, method, output_dir_keyframes, remove_frames_dir)

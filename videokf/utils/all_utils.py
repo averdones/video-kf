@@ -1,6 +1,7 @@
 import os
 import shutil
 from pathlib import Path
+import requests
 
 
 def make_dir(new_dir, path):
@@ -70,3 +71,18 @@ def copy_keyframes_from_frames(frames_dir, keyframes, name_dir="keyframes", remo
     if remove_frames_dir:
         print("Removing frames ...")
         shutil.rmtree(frames_dir)
+
+
+def url_retrieve(url, output_file):
+    """Retrieves a file from a url and saves it.
+
+    Args:
+        url (str): Url from where to retrieve the file.
+        output_file (Path): Output file in Path format.
+
+    """
+    r = requests.get(url, allow_redirects=True)
+    if r.status_code != 200:
+        raise ConnectionError(f"Could not download {url}\nError code: {r.status_code}")
+
+    output_file.write_bytes(r.content)

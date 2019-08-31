@@ -1,41 +1,17 @@
 import os
 from pathlib import Path
-import urllib.request
+import requests
 import zipfile
 import platform
 
-from videokf.utils.all_utils import make_dir
+from videokf.utils.all_utils import make_dir, url_retrieve
 
 
-def set_default_dir():
-    """Sets the default directory where ffmpeg and ffprobe will be searched and download, if not found.
-
-    Args:
-          dir(str): Directory from where to read the executable or where to download it.
-
-    """
-    return Path.home()
-
-
-def get_default_dir(dir=None):
-    """Gets the path of the default directory where ffmpeg and ffprobe will be searched and donwload, if not found.
-
-    It will create the directory, if it doesn't exist.
+def get_ff(type, dir=None):
+    """Gets ffmpeg or ffprobe executables, either from an env var, from dir or downloading it.
 
     Args:
-          dir(str): Directory from where to read the executable or where to download it.
-
-    """
-    if dir is None:
-        dir = set_default_dir()
-
-    return make_dir("Ffmpeg", dir)
-
-
-def get_ffmpeg(dir=None):
-    """Gets ffmpeg executables, either from an env var, from dir or downloading it.
-
-    Args:
+        type (str): Choose what url file to return. Either 'ffmpeg' or 'ffprobe'.
         dir(str): Directory from where to read the executable or where to download it.
 
     Returns:
@@ -45,33 +21,12 @@ def get_ffmpeg(dir=None):
     save_dir = get_default_dir(dir)
 
     # Get urls
-    ffmpeg_url, _ = choose_url()
+    url = choose_url(type)
 
     # Get files or download them
-    ffmpeg = get_executable("ffmpeg", save_dir, ffmpeg_url)
+    ff = get_executable(type, save_dir, url)
 
-    return str(ffmpeg)
-
-
-def get_ffprobe(dir=None):
-    """Gets ffprobe executables, either from an env var, from dir or downloading it.
-
-    Args:
-        dir(str): Directory from where to read the executable or where to download it.
-
-    Returns:
-        tuple(str): Tuple with ffprobe path file.
-
-    """
-    save_dir = get_default_dir(dir)
-
-    # Get urls
-    _, ffprobe_url = choose_url()
-
-    # Get files or download them
-    ffprobe = get_executable("ffprobe", save_dir, ffprobe_url)
-
-    return str(ffprobe)
+    return str(ff)
 
 
 def get_executable(file_name, dir, url):
@@ -138,7 +93,8 @@ def download_and_unzip(url, dir, file_name, remove_zip=True):
     file_name = Path(file_name)
 
     print(f"Downloading {file_name} ...")
-    zip_file, _ = urllib.request.urlretrieve(url, Path(dir) / "temp_file.zip")
+    zip_file = Path(dir) / "temp_file.zip"
+    url_retrieve(url, zip_file)
     print("Download complete")
 
     with zipfile.ZipFile(zip_file) as f:
@@ -150,32 +106,62 @@ def download_and_unzip(url, dir, file_name, remove_zip=True):
     return Path(dir) / file_name.with_suffix(".exe")
 
 
-def choose_url():
+def choose_url(type):
     """Chooses which url to download ffmpeg and ffprobe from based on the operating system.
+
+    Args:
+        type (str): Choose what url file to return. Either 'ffmpeg' or 'ffprobe'.
 
     Returns:
         tuple(str): Tuple of two elements: the first one is the url of ffmpeg and the second one of ffprobe.
 
     """
+    # Download urls information
+    url_api = "https://ffbinaries.com/api/v1/version/latest"
+    headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) "
+                             "Chrome/50.0.2661.102 Safari/537.36"}
+    result = requests.get(url_api, headers=headers).json()["bin"]
+
+    # Find operating system and architecture
     system = platform.system()
     architecture, _= platform.architecture()
 
     if system == "Windows" and architecture == "64bit":
-        ffmpeg_url = "https://github.com/vot/ffbinaries-prebuilt/releases/download/v4.1/ffmpeg-4.1-win-64.zip"
-        ffprobe_url = "https://github.com/vot/ffbinaries-prebuilt/releases/download/v4.1/ffprobe-4.1-win-64.zip"
+        url = result["windows-64"]
     elif system == "Windows" and architecture == "32bit":
-        ffmpeg_url = "https://github.com/vot/ffbinaries-prebuilt/releases/download/v4.1/ffmpeg-4.1-win-32.zip"
-        ffprobe_url = "https://github.com/vot/ffbinaries-prebuilt/releases/download/v4.1/ffprobe-4.1-win-32.zip"
+        url = result["windows-32"]
     elif system == "Linux" and architecture == "64bit":
-        ffmpeg_url = "https://github.com/vot/ffbinaries-prebuilt/releases/download/v4.1/ffmpeg-4.1-linux-64.zip"
-        ffprobe_url = "https://github.com/vot/ffbinaries-prebuilt/releases/download/v4.1/ffprobe-4.1-linux-64.zip"
+        url = result["linux-64"]
     elif system == "Linux" and architecture == "32bit":
-        ffmpeg_url = "https://github.com/vot/ffbinaries-prebuilt/releases/download/v4.1/ffmpeg-4.1-linux-32.zip"
-        ffprobe_url = "https://github.com/vot/ffbinaries-prebuilt/releases/download/v4.1/ffprobe-4.1-linux-32.zip"
+        url = result["linux-32"]
     elif system == "Darwin":
-        ffmpeg_url = "https://github.com/vot/ffbinaries-prebuilt/releases/download/v4.1/ffmpeg-4.1.7-osx-64.zip"
-        ffprobe_url = "https://github.com/vot/ffbinaries-prebuilt/releases/download/v4.1/ffprobe-4.1.7-osx-64.zip"
+        url = result["osx-64"]
     else:
-        print("Operating system not detected! Please, download ffmpeg and ffprobe manually.")
+        print("There was an error while detecting your operating system! Please, download ffmpeg and ffprobe manually.")
 
-    return ffmpeg_url, ffprobe_url
+    return url[type]
+
+
+def set_default_dir():
+    """Sets the default directory where ffmpeg and ffprobe will be searched and download, if not found.
+
+    Args:
+          dir(str): Directory from where to read the executable or where to download it.
+
+    """
+    return Path.home()
+
+
+def get_default_dir(dir=None):
+    """Gets the path of the default directory where ffmpeg and ffprobe will be searched and donwload, if not found.
+
+    It will create the directory, if it doesn't exist.
+
+    Args:
+          dir(str): Directory from where to read the executable or where to download it.
+
+    """
+    if dir is None:
+        dir = set_default_dir()
+
+    return make_dir("Ffmpeg", dir)

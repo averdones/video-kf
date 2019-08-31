@@ -101,6 +101,29 @@ of doing this, all of them equivalent. Choose the one that best suits you:
 directory, and running the program normally (either in the command line or inside python). You can also choose a 
 different directory through the command line with the ```-dir``` option
 
+## Command line options
+    positional arguments:
+      video_file            Path to the video file to extract the keyframes from.
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      -m METHOD, --method METHOD
+                            Method to extract the keyframes
+      -o OUTPUT_DIR_KEYFRAMES, --output_dir_keyframes OUTPUT_DIR_KEYFRAMES
+                            Directory where to extract keyframes. If it is a
+                            string instead of a directory, keyframes will be saved
+                            in a folder named as this string, located in the same
+                            directory of the video
+      -ffmpeg FFMPEG, --ffmpeg FFMPEG
+                            Path to the Ffmpeg executable
+      -ffprobe FFPROBE, --ffprobe FFPROBE
+                            Path to the Ffprobe executable
+      -dir DIR_FFMPEG_FFPROBE, --dir_ffmpeg_ffprobe DIR_FFMPEG_FFPROBE
+                            Path to the directory containing both Ffmpeg and
+                            Ffprobe executables
+      --no-frames-rm        If present, this option will NOT remove the directory
+                            with the extracted frames, if they were extracted
+                            (only for 'color' and 'flow' methods)
 
 ### References
 

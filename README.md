@@ -1,7 +1,7 @@
-## Quick guide
-### Installation
+# Quick guide
+## Installation
     pip install video-kf
-### Usage
+## Usage
 Open a command line, or a terminal, from the same directory where your video is located and run:
     
     video-kf "My_video.mp4"
@@ -9,7 +9,7 @@ Open a command line, or a terminal, from the same directory where your video is 
 If the command line was open in a different directory from where the video is located, then the full path would be 
 needed.
 
-## Extended documentation
+# Extended documentation
 Video-kf is a Python package that can be run either from the command line, or from inside Python, by importing it.
 It extracts the most relevant keyframes of a video, based on different methods.
 
@@ -72,14 +72,14 @@ are group of frames that start with an iframe.
     vf.extract_keyframes("My_video.mp4", method="flow")
     ```
 
-#### Caution
+### Caution
 
 The methods *color* and *flow* **will download all the frames** of the video. Keep in mind that if the video is long, 
 this will take time, as well as space to save the frames.
 
 This is not the case for the method *iframes* that will only download the iframes.
 
-### Use of Ffmpeg and Ffprobe
+## Use of Ffmpeg and Ffprobe
 Video-kf automatically downloads the executable files of *ffmpeg* and *ffprobe* and saves them, by default, in a 
 folder called "Ffmpeg" located in your *home* directory. You can choose to save the executable files in a different 
 location by running:
@@ -98,7 +98,7 @@ of doing this, all of them equivalent. Choose the one that best suits you:
 directory, and running the program normally (either in the command line or inside python). You can also choose a 
 different directory through the command line with the ```-dir``` option
 
-## Command line options
+# Command line options
     positional arguments:
       video_file            Path to the video file to extract the keyframes from.
     

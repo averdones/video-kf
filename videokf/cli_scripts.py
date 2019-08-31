@@ -5,7 +5,7 @@ from videokf.extract_keyframes import extract_keyframes
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Extracts keyframes from a video")
-    parser.add_argument("video_file", type=str, nargs="?", help="Path to the video file to extract the keyframes from")
+    parser.add_argument("video_file", type=str, help="Path to the video file to extract the keyframes from")
     parser.add_argument("-m", "--method", type=str, default="iframes", help="Method to extract the keyframes")
     parser.add_argument("-o", "--output_dir_keyframes", type=str, default="keyframes", help="Directory where to "
                         "extract keyframes. If it is a string instead of a directory, keyframes will be saved in a "

@@ -92,14 +92,18 @@ Video-kf automatically downloads the executable files of *ffmpeg* and *ffprobe* 
 folder called "Ffmpeg" located in your *home* directory. You can choose to save the executable files in a different 
 location by running:
 
-        video-kf "My_video.mp4" -dir "PATH_RO_A_DIFFERENT_LOCATION"
+```
+video-kf "My_video.mp4" -dir "PATH_RO_A_DIFFERENT_LOCATION"
+```
 
 If you already have *ffmpeg* or *ffprobe* installed, you can also use your own executable files. There are various ways 
 of doing this, all of them equivalent. Choose the one that best suits you:
 
 - Using the command line options *ffmpeg* and *ffprobe* (you can choose to use just one of the two):
-
-        video-kf "My_video.mp4" -ffmpeg "PATH_TO_FFMPEG" -ffprobe "PATH_TO_FFPROBE"
+    
+    ```
+    video-kf "My_video.mp4" -ffmpeg "PATH_TO_FFMPEG" -ffprobe "PATH_TO_FFPROBE"
+    ```
 
 - Saving *ffmpeg* and *ffprobe* as environmental variables named respectively FFMPEG and FFPROBE.
 - Saving manually *ffmpeg* and *ffprobe* in the folder called "Ffmpeg", which by default is located in your *home* 

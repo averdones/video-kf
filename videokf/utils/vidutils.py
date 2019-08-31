@@ -4,8 +4,8 @@ import subprocess
 import numpy as np
 import cv2
 
-from keyframes_extractor.utils.all_utils import make_dir, make_frames_list
-from keyframes_extractor.keyframe_manager.frame_manager import Frame, calculate_stillness
+from videokf.utils.all_utils import make_dir, make_frames_list
+from videokf.keyframe_manager.frame_manager import Frame, calculate_stillness
 
 
 def extract_frames(ffmpeg_exe, video_file, frames_selected=None, output_dir="frames", frame_quality=1):

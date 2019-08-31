@@ -4,7 +4,7 @@ import urllib.request
 import zipfile
 import platform
 
-from keyframes_extractor.utils.all_utils import make_dir
+from videokf.utils.all_utils import make_dir
 
 
 def set_default_dir():

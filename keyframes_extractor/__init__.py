@@ -1,1 +1,0 @@
-from keyframes_extractor.extract_keyframes import extract_keyframes

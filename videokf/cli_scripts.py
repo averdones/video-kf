@@ -1,6 +1,6 @@
 import argparse
 
-from keyframes_extractor.extract_keyframes import extract_keyframes
+from videokf.extract_keyframes import extract_keyframes
 
 
 def parse_arguments():

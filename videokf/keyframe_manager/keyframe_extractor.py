@@ -1,5 +1,5 @@
-from keyframes_extractor.utils.all_utils import copy_keyframes_from_frames
-from keyframes_extractor.utils.vidutils import extract_frames, get_iframes, get_keyframes_color, get_keyframes_flow
+from videokf.utils.all_utils import copy_keyframes_from_frames
+from videokf.utils.vidutils import extract_frames, get_iframes, get_keyframes_color, get_keyframes_flow
 
 
 # Valid extraction methods

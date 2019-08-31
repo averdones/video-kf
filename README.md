@@ -20,11 +20,15 @@ calculated by ffmpeg. This is the default option.
 
     Use in the command line:
 
-    ```video-kf "My_video.mp4"```
+    ```
+    video-kf "My_video.mp4"
+    ```
     
     or
     
-        video-kf "My_video.mp4" -m "iframes"
+    ```
+    video-kf "My_video.mp4" -m "iframes"
+    ```
         
     Use inside Python:
     
@@ -47,8 +51,10 @@ that start with an iframe.
 
     Use in the command line:
     
-        video-kf "My_video.mp4" -m "color"
-        
+    ```
+    video-kf "My_video.mp4" -m "color"
+    ```
+            
     Use inside Python:
     
     ```python
@@ -62,7 +68,9 @@ are group of frames that start with an iframe.
  
     Use in the command line:
     
-        video-kf "My_video.mp4" -m "flow"
+    ```
+    video-kf "My_video.mp4" -m "flow"
+    ```
         
     Use inside Python:
     

@@ -44,6 +44,8 @@ def extract_frames(ffmpeg_exe, video_file, frames_selected=None, output_dir="fra
             ffmpeg_args = [ffmpeg_exe, "-i", video_file, "-vf", make_frames_list(frames_selected), "-vsync", "0",
                            "-q:v", str(frame_quality), "-frame_pts", "1", str((frames_dir / "%d").with_suffix(".jpg"))]
 
+        print("Downloading frames ...")
+
         subprocess.check_output(ffmpeg_args)
 
         print("Frames successfully extracted.")

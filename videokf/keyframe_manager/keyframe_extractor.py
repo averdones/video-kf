@@ -38,10 +38,10 @@ def get_keyframes(ffmpeg_exe, ffprobe_exe, video_file, method="iframes", output_
 
     """
     if method not in VALID_METHODS:
-        print("Invalid method! Please select on of the following 3:\n"
-              " - iframes \n"
-              " - color \n"
-              " - flow")
+        print("Invalid method! Please select one of the following 3:")
+        for m in VALID_METHODS:
+            print(f" - {m}")
+
         return
 
     # Calculate the iframe indices of the video

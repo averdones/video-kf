@@ -19,8 +19,8 @@ At the moment, there are 3 methods available:
 calculated by ffmpeg. This is the default option.
 
     Use in the command line:
-        
-        video-kf "My_video.mp4"
+
+    ```video-kf "My_video.mp4"```
     
     or
     

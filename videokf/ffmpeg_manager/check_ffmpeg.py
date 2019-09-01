@@ -76,7 +76,12 @@ def check_if_file_exists(file, dir):
         str: Full path of the file if it exists. It returns None, if the file doesn't exist.
 
     """
-    my_file = dir / Path(file).with_suffix(".exe")
+    my_file = dir / Path(file)
+    if my_file.is_file():
+        return my_file.absolute()
+
+    # Check windows case with .exe extension
+    my_file = my_file.with_suffix(".exe")
     if my_file.is_file():
         return my_file.absolute()
 
@@ -115,7 +120,7 @@ def download_and_unzip(url, dir, file_name, remove_zip=True):
     if remove_zip:
         Path(zip_file).unlink()
 
-    return Path(dir) / file_name.with_suffix(".exe")
+    return Path(dir) / save_file
 
 
 def choose_url(type):
@@ -177,3 +182,9 @@ def get_default_dir(dir=None):
         dir = set_default_dir()
 
     return make_dir("Ffmpeg", dir)
+
+
+
+
+if __name__ == "__main__":
+    get_ff("ffmpeg")

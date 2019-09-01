@@ -1,4 +1,5 @@
 import os
+import re
 from pathlib import Path
 import requests
 import zipfile
@@ -98,7 +99,18 @@ def download_and_unzip(url, dir, file_name, remove_zip=True):
     print("Download complete")
 
     with zipfile.ZipFile(zip_file) as f:
-        f.extract(str(file_name.with_suffix(".exe")), dir)
+        # List all files inside zip file
+        file_list = f.namelist()
+
+        # Match files with 'file_name' pattern
+        match_list = [re.match(f"{file_name.name}(.exe)*", x) for x in file_list]
+
+        # Get file that matched the pattern.
+        # If file not matched, return None, which will prompt an error during extraction
+        save_file = next((item.string for item in match_list if item is not None), None)
+
+        # Extract the file
+        f.extract(save_file, dir)
 
     if remove_zip:
         Path(zip_file).unlink()

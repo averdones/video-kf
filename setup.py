@@ -7,14 +7,14 @@ with open("README.md", "r") as fh:
 # Requirements
 def get_requirements():
     return [
-        "numpy",
-        "opencv-python",
-        "requests"
+        "numpy>=1.17",
+        "opencv-python>=4",
+        "requests>=2.22"
     ]
 
 setuptools.setup(
     name="video-kf",
-    version="0.0.5",
+    version="0.0.1",
     author="Antonio Verdone",
     author_email="averdones@gmail.com",
     description="A keyframes and ffmpeg iframes extractor",

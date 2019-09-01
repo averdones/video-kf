@@ -1,4 +1,5 @@
 import os
+import stat
 import re
 from pathlib import Path
 import requests
@@ -26,6 +27,9 @@ def get_ff(type, dir=None):
 
     # Get files or download them
     ff = get_executable(type, save_dir, url)
+
+    # Allow executing program for Ubuntu and OSX
+    allow_executing_as_program(str(ff))
 
     return str(ff)
 
@@ -184,7 +188,12 @@ def get_default_dir(dir=None):
     return make_dir("Ffmpeg", dir)
 
 
+def allow_executing_as_program(file):
+    """Turns on the option 'allow executing file as program' in Ubuntu and OSX.
 
+    Args:
+        file (str): Path of the file.
 
-if __name__ == "__main__":
-    get_ff("ffmpeg")
+    """
+    st = os.stat(file)
+    os.chmod(file, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)

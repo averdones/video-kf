@@ -31,9 +31,10 @@ def extract_frames(ffmpeg_exe, video_file, frames_selected=None, output_dir="fra
 
     """
     if Path(output_dir).is_dir():
-        frames_dir = Path(output_dir).mkdir(exist_ok=True)
+        frames_dir = Path(output_dir)
     else:
-        frames_dir = make_dir(output_dir, Path(video_file).parent)
+        frames_dir = make_dir(output_dir, Path(video_file).parent, parents=True)
+
 
     # Extract frames only if directory is empty
     if len(os.listdir(frames_dir)) == 0:

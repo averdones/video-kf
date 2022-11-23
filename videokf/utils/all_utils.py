@@ -4,19 +4,21 @@ from pathlib import Path
 import requests
 
 
-def make_dir(new_dir, path):
+def make_dir(new_dir, path, exist_ok=True, parents=False):
     """Creates a directory if it doesn't exist.
 
     Args:
         new_dir (str): Name of the new directory to be created.
         path (str): Path where the new directory will be created.
+        exist_ok (bool): If True, it doesn't raise an error if the directory already exists.
+        parents (bool): If True, it creates all the parent directories if they don't exist.
 
     Returns:
         str: Path of the newly created directory.
 
     """
     new_path = path / Path(new_dir)
-    new_path.mkdir(exist_ok=True)
+    new_path.mkdir(exist_ok=exist_ok, parents=parents)
 
     return new_path
 

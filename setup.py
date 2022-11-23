@@ -14,7 +14,7 @@ def get_requirements():
 
 setuptools.setup(
     name="video-kf",
-    version="0.0.3",
+    version="0.0.4",
     author="Antonio Verdone",
     author_email="averdones@gmail.com",
     description="A keyframes and ffmpeg iframes extractor",
